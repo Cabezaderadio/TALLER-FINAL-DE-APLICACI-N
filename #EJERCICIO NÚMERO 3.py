@@ -5,7 +5,6 @@ class Vuelo:
         self.origen = origen
         self.destino = destino
         self.fecha = fecha
-        self.asientos = []
 class Pasajero(Vuelo):
     def __init__(self, origen, destino, fecha, nombre, edad, cedula):
         super().__init__(origen, destino, fecha)    
@@ -74,8 +73,6 @@ class Reserva(Pasajero):
         else:
             return self.costo
             
-
-
 
 def menu():
     
