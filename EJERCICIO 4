@@ -1,1 +1,80 @@
+class Empleado:
+    def __init__(self, nombre, edad, DNI):
+        self.nombre = nombre
+        self.edad = edad
+        self.DNI = DNI
+        self.salario = 1200000
 
+class Departamento(Empleado):
+    def __init__(self, nombre, edad, DNI, rol):
+        super().__init__(nombre, edad, DNI)
+        self.rol = rol
+
+class Tarea(Departamento):
+    def __init__(self, nombre, edad, DNI, rol, aprovacion):
+        super().__init__(nombre, edad, DNI, rol)
+        self.aprovacion = aprovacion
+
+    def adic(self):
+
+        if self.rol.lower() == "logistica":
+            return self.salario + 250000
+        if self.rol.lower() == "Publicidad":
+            return self.salario + 150000
+        if self.rol.lower() == "Ingenieria":
+            return self.salario + 400000
+        else:
+            return self.salario
+
+    def salario_total(self):
+        if self.aprovacion.lower() == "si":
+            return self.adic() + 100000
+        elif self.aprovacion.lower() == "no":
+            return self.adic() - 100000
+        else:
+            return self.adic()
+
+def menu():
+    print("BIENVENIDO AL SISTEMA\n¿DESEA INGRESAR LA INFORMACIÓN DE UN NUEVO EMPLEADO AL SISTEMA")
+    print("1.SI\n2.NO")
+    opcion = int(input(""))
+    return opcion
+
+def Datos(opcion):
+    if opcion == 1:
+        print("INGRESE EL NOMBRE DEL EMPLEADO")
+        nombre = input("")
+        print("INGRESE LA EDAD DEL EMPLEADO")
+        edad = int(input(""))
+        print("INGRESE EL NUMERO DE IDENTIFICACIÓN DEL EMPLEADO")
+        DNI = int(input(""))
+        print("INGRESE EL ROL DEL EMPLEADO (Logistica, Publicidad o Ingenieria)")
+        rol = input("")
+        print("EL EMPLEADO CUMPLIO SU TAREA EN EL TIEMPO ESTIMADO\nSI\nNO")
+        aprovacion = input("")
+
+        empleado = Tarea(nombre, edad, DNI, rol, aprovacion)
+        return empleado
+
+    if opcion == 2:
+        return None
+
+opcion = menu()
+lista = []
+contador = 0
+while opcion != 2:
+    contador += 1
+    empleado = Datos(opcion)
+    if empleado is not None:
+        lista.append(empleado)
+    opcion = menu()
+
+print("                 INFORME EMPLEADOS         ")
+print(" NOMBRE    EDAD    DNI   TAREA   DEPARTAMENTO    SALARIO")
+for empleado in lista:
+
+    salario_total = empleado.salario_total()
+
+    print(empleado.nombre, empleado.edad, empleado.DNI, empleado.aprovacion, empleado.rol, salario_total)
+
+print("TOTAL EMPLEADOS:", contador)
